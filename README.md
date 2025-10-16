@@ -2,9 +2,6 @@
 
 The comprehensive TypeScript/JavaScript library for parsing Garmin Connect export files.
 
-[![npm version](https://badge.fury.io/js/garmin-export-parser.svg)](https://www.npmjs.com/package/garmin-export-parser)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
 ## Features
 
 - Parse complete Garmin Connect export ZIP files
