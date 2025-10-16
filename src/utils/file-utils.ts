@@ -23,9 +23,7 @@ export function calculateTempDir(
  * Pure calculation function
  */
 export function patternToRegex(pattern: string): RegExp {
-  const regexPattern = pattern
-    .replace(/\*\*/g, '.*')
-    .replace(/\*/g, '[^/]*');
+  const regexPattern = pattern.replace(/\*\*/g, '.*').replace(/\*/g, '[^/]*');
   return new RegExp(regexPattern);
 }
 
@@ -33,10 +31,7 @@ export function patternToRegex(pattern: string): RegExp {
  * Check if file path matches any of the given patterns
  * Pure calculation function
  */
-export function matchesPatterns(
-  filePath: string,
-  patterns: string[]
-): boolean {
+export function matchesPatterns(filePath: string, patterns: string[]): boolean {
   for (const pattern of patterns) {
     const regex = patternToRegex(pattern);
     if (regex.test(filePath)) {

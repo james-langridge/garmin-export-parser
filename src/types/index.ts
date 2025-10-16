@@ -17,6 +17,12 @@ export * from './sleep';
 // Training metrics types
 export * from './training';
 
+// Import types for use in this file
+import type { Activity } from './activity';
+import type { DailySummary } from './daily-summary';
+import type { SleepSession } from './sleep';
+import type { TrainingMetric } from './training';
+
 /**
  * Options for parsing Garmin export files
  */
@@ -52,13 +58,13 @@ export interface ExportMetadata {
  */
 export interface GarminExportData {
   /** Parsed activities */
-  activities: import('./activity').Activity[];
+  activities: Activity[];
   /** Parsed daily summaries */
   dailySummaries: DailySummary[];
   /** Parsed sleep sessions */
-  sleepSessions: import('./sleep').SleepSession[];
+  sleepSessions: SleepSession[];
   /** Parsed training metrics */
-  trainingMetrics: import('./training').TrainingMetric[];
+  trainingMetrics: TrainingMetric[];
   /** Export metadata */
   metadata: ExportMetadata;
 }

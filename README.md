@@ -67,16 +67,18 @@ Parse a Garmin Connect export ZIP file asynchronously.
 async function parseGarminExport(
   zipFilePath: string,
   options?: ParseOptions
-): Promise<GarminExportData>
+): Promise<GarminExportData>;
 ```
 
 **Parameters:**
+
 - `zipFilePath` - Path to the Garmin export ZIP file
 - `options` - Optional parsing configuration
 
 **Returns:** Promise resolving to `GarminExportData`
 
 **Example:**
+
 ```typescript
 const data = await parseGarminExport('./export.zip', {
   includeActivities: true,
@@ -96,10 +98,11 @@ Synchronous version of `parseGarminExport`.
 function parseGarminExportSync(
   zipFilePath: string,
   options?: ParseOptions
-): GarminExportData
+): GarminExportData;
 ```
 
 **Example:**
+
 ```typescript
 const data = parseGarminExportSync('./export.zip');
 ```
@@ -144,6 +147,7 @@ import {
 #### `Activity`
 
 Comprehensive activity data including:
+
 - Basic info (name, type, sport type)
 - Timing (start time, duration)
 - Metrics (distance, speed, heart rate, power, cadence)
@@ -156,6 +160,7 @@ Comprehensive activity data including:
 #### `DailySummary`
 
 Daily wellness data including:
+
 - Steps and distance
 - Calories (total, active, BMR)
 - Activity levels (highly active, active, sedentary, sleeping)
@@ -168,6 +173,7 @@ Daily wellness data including:
 #### `SleepSession`
 
 Sleep tracking data including:
+
 - Sleep duration by stage (deep, light, REM, awake)
 - Sleep scores (overall, quality, duration, recovery)
 - Respiration metrics
@@ -178,6 +184,7 @@ Sleep tracking data including:
 #### `TrainingMetric`
 
 Training metrics including:
+
 - Readiness score
 - Training load
 - Endurance metrics
@@ -188,12 +195,12 @@ Training metrics including:
 
 ```typescript
 interface ParseOptions {
-  includeActivities?: boolean;        // Default: true
-  includeDailySummaries?: boolean;    // Default: true
-  includeSleepSessions?: boolean;     // Default: true
-  includeTrainingMetrics?: boolean;   // Default: true
-  tempDir?: string;                   // Default: '/tmp/garmin-export-parser'
-  keepExtracted?: boolean;            // Default: false
+  includeActivities?: boolean; // Default: true
+  includeDailySummaries?: boolean; // Default: true
+  includeSleepSessions?: boolean; // Default: true
+  includeTrainingMetrics?: boolean; // Default: true
+  tempDir?: string; // Default: '/tmp/garmin-export-parser'
+  keepExtracted?: boolean; // Default: false
 }
 ```
 
@@ -204,8 +211,8 @@ interface ParseOptions {
 ```typescript
 const data = await parseGarminExport('./export.zip');
 
-const runs = data.activities.filter(a => a.activityType === 'running');
-const rides = data.activities.filter(a => a.activityType === 'cycling');
+const runs = data.activities.filter((a) => a.activityType === 'running');
+const rides = data.activities.filter((a) => a.activityType === 'cycling');
 
 console.log(`You have ${runs.length} runs and ${rides.length} rides`);
 ```
@@ -216,7 +223,7 @@ console.log(`You have ${runs.length} runs and ${rides.length} rides`);
 const data = await parseGarminExport('./export.zip');
 
 const longestRun = data.activities
-  .filter(a => a.activityType === 'running')
+  .filter((a) => a.activityType === 'running')
   .sort((a, b) => (b.distance || 0) - (a.distance || 0))[0];
 
 if (longestRun) {
@@ -231,18 +238,22 @@ if (longestRun) {
 ```typescript
 const data = await parseGarminExport('./export.zip');
 
-const avgSleepScore = data.sleepSessions
-  .filter(s => s.scores?.overall)
-  .reduce((sum, s) => sum + s.scores!.overall!, 0) / data.sleepSessions.length;
+const avgSleepScore =
+  data.sleepSessions
+    .filter((s) => s.scores?.overall)
+    .reduce((sum, s) => sum + s.scores!.overall!, 0) /
+  data.sleepSessions.length;
 
 console.log(`Average sleep score: ${avgSleepScore.toFixed(1)}`);
 
 // Find best sleep
 const bestSleep = data.sleepSessions
-  .filter(s => s.scores?.overall)
+  .filter((s) => s.scores?.overall)
   .sort((a, b) => b.scores!.overall! - a.scores!.overall!)[0];
 
-console.log(`Best sleep score: ${bestSleep.scores!.overall} on ${bestSleep.calendarDate}`);
+console.log(
+  `Best sleep score: ${bestSleep.scores!.overall} on ${bestSleep.calendarDate}`
+);
 ```
 
 ### Calculate Total Distance
@@ -251,7 +262,7 @@ console.log(`Best sleep score: ${bestSleep.scores!.overall} on ${bestSleep.calen
 const data = await parseGarminExport('./export.zip');
 
 const totalDistance = data.activities
-  .filter(a => a.distance)
+  .filter((a) => a.distance)
   .reduce((sum, a) => sum + a.distance!, 0);
 
 console.log(`Total distance: ${(totalDistance / 1000).toFixed(2)}km`);
@@ -267,14 +278,16 @@ const data = await parseGarminExport('./export.zip');
 
 const csv = [
   'Date,Name,Type,Distance (km),Duration (min),Avg HR',
-  ...data.activities.map(a => [
-    a.startTimeGmt.toLocaleDateString(),
-    a.name,
-    a.activityType,
-    a.distance ? (a.distance / 1000).toFixed(2) : '',
-    a.duration ? (a.duration / 60000).toFixed(1) : '',
-    a.avgHeartRate || '',
-  ].join(','))
+  ...data.activities.map((a) =>
+    [
+      a.startTimeGmt.toLocaleDateString(),
+      a.name,
+      a.activityType,
+      a.distance ? (a.distance / 1000).toFixed(2) : '',
+      a.duration ? (a.duration / 60000).toFixed(1) : '',
+      a.avgHeartRate || '',
+    ].join(',')
+  ),
 ].join('\n');
 
 writeFileSync('activities.csv', csv);
@@ -344,7 +357,7 @@ import type {
   TrainingMetric,
   GarminExportData,
   ParseOptions,
-  GarminActivity,  // Raw Garmin format
+  GarminActivity, // Raw Garmin format
   Coordinate,
   HeartRateZones,
   SleepScores,

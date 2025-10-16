@@ -3,7 +3,6 @@
  */
 
 import { GarminActivity, Activity, ActivitiesExport } from '../types/activity';
-import { Coordinate, HeartRateZones } from '../types/common';
 
 /**
  * Transform raw Garmin activity to parsed Activity format

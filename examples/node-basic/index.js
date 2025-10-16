@@ -33,17 +33,21 @@ async function main() {
       console.log(`  Type: ${firstActivity.activityType}`);
       console.log(`  Date: ${firstActivity.startTimeGmt.toLocaleDateString()}`);
       if (firstActivity.distance) {
-        console.log(`  Distance: ${(firstActivity.distance / 1000).toFixed(2)} km`);
+        console.log(
+          `  Distance: ${(firstActivity.distance / 1000).toFixed(2)} km`
+        );
       }
       if (firstActivity.duration) {
-        console.log(`  Duration: ${(firstActivity.duration / 60000).toFixed(1)} min`);
+        console.log(
+          `  Duration: ${(firstActivity.duration / 60000).toFixed(1)} min`
+        );
       }
       console.log();
     }
 
     // Calculate totals
     const totalDistance = data.activities
-      .filter(a => a.distance)
+      .filter((a) => a.distance)
       .reduce((sum, a) => sum + a.distance, 0);
 
     const totalActivities = data.activities.length;
@@ -51,7 +55,6 @@ async function main() {
     console.log('Summary:');
     console.log(`  Total Activities: ${totalActivities}`);
     console.log(`  Total Distance: ${(totalDistance / 1000).toFixed(2)} km`);
-
   } catch (error) {
     console.error('Error parsing Garmin export:', error.message);
     process.exit(1);
