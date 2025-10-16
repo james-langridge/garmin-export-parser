@@ -7,9 +7,9 @@
  */
 export interface DailySummary {
   /** Date in YYYY-MM-DD format */
-  date: string;
-  /** User profile ID */
-  userProfileId: number;
+  calendarDate: string;
+  /** User profile ID (primary key) */
+  userProfilePK: number;
   /** Unique identifier for this summary */
   uuid?: string;
   /** Total steps for the day */

@@ -131,7 +131,8 @@ export async function parseGarminExport(
       );
       for (const filePath of sleepFiles) {
         const content = readFileContent(filePath);
-        const parsed = parseSleepSessionsJson(content);
+        const fileName = filePath.split('/').pop() || '';
+        const parsed = parseSleepSessionsJson(content, fileName);
         sleepSessions.push(...parsed);
       }
     }
@@ -144,7 +145,8 @@ export async function parseGarminExport(
       );
       for (const filePath of trainingFiles) {
         const content = readFileContent(filePath);
-        const parsed = parseTrainingMetricsJson(content);
+        const fileName = filePath.split('/').pop() || '';
+        const parsed = parseTrainingMetricsJson(content, fileName);
         trainingMetrics.push(...parsed);
       }
     }
@@ -233,7 +235,8 @@ export function parseGarminExportSync(
       );
       for (const filePath of sleepFiles) {
         const content = readFileContent(filePath);
-        const parsed = parseSleepSessionsJson(content);
+        const fileName = filePath.split('/').pop() || '';
+        const parsed = parseSleepSessionsJson(content, fileName);
         sleepSessions.push(...parsed);
       }
     }
@@ -246,7 +249,8 @@ export function parseGarminExportSync(
       );
       for (const filePath of trainingFiles) {
         const content = readFileContent(filePath);
-        const parsed = parseTrainingMetricsJson(content);
+        const fileName = filePath.split('/').pop() || '';
+        const parsed = parseTrainingMetricsJson(content, fileName);
         trainingMetrics.push(...parsed);
       }
     }
@@ -303,11 +307,14 @@ export class GarminExportParser {
     return parseDailySummariesJson(jsonContent);
   }
 
-  parseSleepSessions(jsonContent: string): SleepSession[] {
-    return parseSleepSessionsJson(jsonContent);
+  parseSleepSessions(jsonContent: string, fileName?: string): SleepSession[] {
+    return parseSleepSessionsJson(jsonContent, fileName);
   }
 
-  parseTrainingMetrics(jsonContent: string): TrainingMetric[] {
-    return parseTrainingMetricsJson(jsonContent);
+  parseTrainingMetrics(
+    jsonContent: string,
+    fileName?: string
+  ): TrainingMetric[] {
+    return parseTrainingMetricsJson(jsonContent, fileName);
   }
 }

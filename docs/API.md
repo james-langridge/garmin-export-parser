@@ -7,20 +7,23 @@
 Asynchronously parse a Garmin Connect export ZIP file.
 
 **Signature:**
+
 ```typescript
 async function parseGarminExport(
   zipFilePath: string,
   options?: ParseOptions
-): Promise<GarminExportData>
+): Promise<GarminExportData>;
 ```
 
 **Parameters:**
+
 - `zipFilePath: string` - Path to the Garmin export ZIP file
 - `options?: ParseOptions` - Optional parsing configuration
 
 **Returns:** `Promise<GarminExportData>`
 
 **Example:**
+
 ```typescript
 const data = await parseGarminExport('./export.zip', {
   includeActivities: true,
@@ -37,14 +40,16 @@ const data = await parseGarminExport('./export.zip', {
 Synchronously parse a Garmin Connect export ZIP file.
 
 **Signature:**
+
 ```typescript
 function parseGarminExportSync(
   zipFilePath: string,
   options?: ParseOptions
-): GarminExportData
+): GarminExportData;
 ```
 
 **Parameters:**
+
 - `zipFilePath: string` - Path to the Garmin export ZIP file
 - `options?: ParseOptions` - Optional parsing configuration
 
@@ -65,31 +70,37 @@ const parser = new GarminExportParser(options?: ParseOptions)
 ### Methods
 
 #### parse(zipFilePath)
+
 ```typescript
 async parse(zipFilePath: string): Promise<GarminExportData>
 ```
 
 #### parseSync(zipFilePath)
+
 ```typescript
 parseSync(zipFilePath: string): GarminExportData
 ```
 
 #### parseActivities(jsonContent)
+
 ```typescript
 parseActivities(jsonContent: string): Activity[]
 ```
 
 #### parseDailySummaries(jsonContent)
+
 ```typescript
 parseDailySummaries(jsonContent: string): DailySummary[]
 ```
 
 #### parseSleepSessions(jsonContent)
+
 ```typescript
 parseSleepSessions(jsonContent: string): SleepSession[]
 ```
 
 #### parseTrainingMetrics(jsonContent)
+
 ```typescript
 parseTrainingMetrics(jsonContent: string): TrainingMetric[]
 ```
@@ -99,23 +110,27 @@ parseTrainingMetrics(jsonContent: string): TrainingMetric[]
 ## Low-Level Parsers
 
 ### parseActivitiesJson(jsonContent)
+
 ```typescript
-function parseActivitiesJson(jsonContent: string): Activity[]
+function parseActivitiesJson(jsonContent: string): Activity[];
 ```
 
 ### parseDailySummariesJson(jsonContent)
+
 ```typescript
-function parseDailySummariesJson(jsonContent: string): DailySummary[]
+function parseDailySummariesJson(jsonContent: string): DailySummary[];
 ```
 
 ### parseSleepSessionsJson(jsonContent)
+
 ```typescript
-function parseSleepSessionsJson(jsonContent: string): SleepSession[]
+function parseSleepSessionsJson(jsonContent: string): SleepSession[];
 ```
 
 ### parseTrainingMetricsJson(jsonContent)
+
 ```typescript
-function parseTrainingMetricsJson(jsonContent: string): TrainingMetric[]
+function parseTrainingMetricsJson(jsonContent: string): TrainingMetric[];
 ```
 
 ---
@@ -123,29 +138,30 @@ function parseTrainingMetricsJson(jsonContent: string): TrainingMetric[]
 ## Extraction Functions
 
 ### extractZipFile(zipFilePath, customTempDir?)
+
 ```typescript
-function extractZipFile(
-  zipFilePath: string,
-  customTempDir?: string
-): string
+function extractZipFile(zipFilePath: string, customTempDir?: string): string;
 ```
 
 ### extractAndReadFiles(zipFilePath, customTempDir?)
+
 ```typescript
 function extractAndReadFiles(
   zipFilePath: string,
   customTempDir?: string
-): ExtractedFiles
+): ExtractedFiles;
 ```
 
 ### findFiles(basePath, ...patterns)
+
 ```typescript
-function findFiles(basePath: string, ...patterns: string[]): string[]
+function findFiles(basePath: string, ...patterns: string[]): string[];
 ```
 
 ### cleanupTempDir(tempDir)
+
 ```typescript
-function cleanupTempDir(tempDir: string): void
+function cleanupTempDir(tempDir: string): void;
 ```
 
 ---
@@ -156,12 +172,12 @@ function cleanupTempDir(tempDir: string): void
 
 ```typescript
 interface ParseOptions {
-  includeActivities?: boolean;        // Default: true
-  includeDailySummaries?: boolean;    // Default: true
-  includeSleepSessions?: boolean;     // Default: true
-  includeTrainingMetrics?: boolean;   // Default: true
-  tempDir?: string;                   // Default: '/tmp/garmin-export-parser'
-  keepExtracted?: boolean;            // Default: false
+  includeActivities?: boolean; // Default: true
+  includeDailySummaries?: boolean; // Default: true
+  includeSleepSessions?: boolean; // Default: true
+  includeTrainingMetrics?: boolean; // Default: true
+  tempDir?: string; // Default: '/tmp/garmin-export-parser'
+  keepExtracted?: boolean; // Default: false
 }
 ```
 
