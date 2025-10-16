@@ -12,6 +12,7 @@ import { parseGenericJson } from './generic-parser';
  */
 function extractMetricType(fileName: string): TrainingMetricType {
   if (fileName.includes('TrainingReadiness')) return 'readiness';
+  if (fileName.includes('TrainingHistory')) return 'status';
   if (
     fileName.includes('TrainingLoad') ||
     fileName.includes('MetricsAcuteTrainingLoad')
@@ -67,22 +68,38 @@ export function parseTrainingMetricsJson(
   const userProfileId = fileName ? extractUserProfileId(fileName) : undefined;
 
   return rawMetrics
-    .filter((raw) => raw.calendarDate != null) // Skip invalid records
-    .map((raw) => ({
-      date: normalizeDate(raw.calendarDate) || normalizeDate(raw.date) || '',
-      userProfileId:
-        (raw.userProfilePK as number | undefined) ||
-        (raw.userProfileId as number | undefined) ||
-        userProfileId ||
-        0,
-      metricType:
-        (raw.metricType as TrainingMetricType | undefined) || metricType,
-      score: raw.score as number | undefined,
-      level: raw.level as string | undefined,
-      feedbackShort: raw.feedbackShort as string | undefined,
-      feedbackLong: raw.feedbackLong as string | undefined,
-      metricData: raw.metricData as Record<string, unknown> | undefined,
-      raw,
-    }))
+    .filter((raw) => raw.calendarDate != null && raw.timestamp != null) // Skip invalid records
+    .map((raw) => {
+      // Handle timestamp - can be string or number (milliseconds)
+      let timestamp: Date;
+      if (typeof raw.timestamp === 'string') {
+        timestamp = new Date(raw.timestamp as string);
+      } else if (typeof raw.timestamp === 'number') {
+        timestamp = new Date(raw.timestamp as number);
+      } else {
+        // Fallback to start of day if timestamp format unknown
+        const dateStr =
+          normalizeDate(raw.calendarDate) || normalizeDate(raw.date);
+        timestamp = dateStr ? new Date(dateStr) : new Date();
+      }
+
+      return {
+        date: normalizeDate(raw.calendarDate) || normalizeDate(raw.date) || '',
+        userProfileId:
+          (raw.userProfilePK as number | undefined) ||
+          (raw.userProfileId as number | undefined) ||
+          userProfileId ||
+          0,
+        metricType:
+          (raw.metricType as TrainingMetricType | undefined) || metricType,
+        timestamp,
+        score: raw.score as number | undefined,
+        level: raw.level as string | undefined,
+        feedbackShort: raw.feedbackShort as string | undefined,
+        feedbackLong: raw.feedbackLong as string | undefined,
+        metricData: raw.metricData as Record<string, unknown> | undefined,
+        raw,
+      };
+    })
     .filter((metric) => metric.date !== ''); // Filter out records with no valid date
 }

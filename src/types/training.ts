@@ -5,7 +5,12 @@
 /**
  * Type of training metric
  */
-export type TrainingMetricType = 'readiness' | 'load' | 'endurance' | 'hill';
+export type TrainingMetricType =
+  | 'readiness'
+  | 'load'
+  | 'status'
+  | 'endurance'
+  | 'hill';
 
 /**
  * Training metric data from Garmin
@@ -17,6 +22,8 @@ export interface TrainingMetric {
   userProfileId: number;
   /** Type of training metric */
   metricType: TrainingMetricType;
+  /** Timestamp of the metric reading */
+  timestamp: Date;
   /** Metric score/value */
   score?: number;
   /** Metric level (e.g., 'optimal', 'productive', 'maintaining') */
