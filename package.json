@@ -37,7 +37,7 @@
     "type": "git",
     "url": "https://github.com/james-langridge/garmin-export-parser.git"
   },
-  "author": "",
+  "author": "James Langridge <james@langridge.dev>",
   "license": "MIT",
   "devDependencies": {
     "@types/adm-zip": "^0.5.5",
