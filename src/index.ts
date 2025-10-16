@@ -51,10 +51,10 @@ import type {
  * File patterns for finding Garmin data files
  */
 const FILE_PATTERNS = {
-  activities: '**/summarizedActivities.json',
-  dailySummaries: '**/DI_CONNECT/DI-Connect-Wellness/**/*.json',
-  sleepSessions: '**/DI_CONNECT/DI-Connect-Wellness-Sleep/**/*.json',
-  trainingMetrics: '**/DI_CONNECT/DI-Connect-Training/**/*.json',
+  activities: '**/*_summarizedActivities.json',
+  dailySummaries: '**/UDSFile_*.json',
+  sleepSessions: '**/*_sleepData.json',
+  trainingMetrics: '**/*Training*.json',
 };
 
 /**
