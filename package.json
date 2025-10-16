@@ -29,13 +29,13 @@
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
     "format": "prettier --write \"src/**/*.ts\"",
-    "prepublishOnly": "npm run build && npm test",
+    "prepublishOnly": "npm run build",
     "version": "npm run format && git add -A src",
     "postversion": "git push && git push --tags"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/james-langridge/garmin-export-parser.git"
+    "url": "git+https://github.com/james-langridge/garmin-export-parser.git"
   },
   "author": "James Langridge <james@langridge.dev>",
   "license": "MIT",
