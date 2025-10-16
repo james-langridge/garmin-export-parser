@@ -1,0 +1,19 @@
+# Source files
+src/
+tests/
+examples/
+docs/
+
+# Config files
+tsconfig.json
+.eslintrc.json
+.prettierrc
+.gitignore
+
+# CI/CD
+.github/
+
+# Development
+*.log
+.env
+.DS_Store
