@@ -409,11 +409,3 @@ MIT - see [LICENSE](LICENSE) file for details
 ## Changelog
 
 See [CHANGELOG.md](CHANGELOG.md) for release history.
-
-## Related Projects
-
-- [garmin-data-visualiser](https://github.com/yourusername/garmin-data-visualiser) - Visualize your Garmin data with a web dashboard
-
-## Acknowledgments
-
-This library uses production-tested parsing logic and is designed for reliability and ease of use.
